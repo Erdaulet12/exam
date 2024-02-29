@@ -129,6 +129,7 @@ class Terminal(Pizza):
                 "Хотите подтвердить заказ? (Да/Нет): ")
             if confirmation.lower() == "Да".lower():
                 self.current_order = None
+                self.current_order = None
                 Pizza.prepare(self)
                 Pizza.bake(self)
                 Pizza.cut(self)
