@@ -1,42 +1,68 @@
+"""task_1.py"""
+
+
 import random
 
-def hangman():
 
-  print("Привет! Добро пожаловать в игру Виселица!")
+class Hangman:
+    """Класс виселицы"""
 
-  wordlist = ["мандарин", "яблоко", "груша", "виноград", "апельсин", "манго"]
-  secret = random.choice(wordlist)
-  guesses = "ауоыиэяюёе"
-  turns = 5
+    def __init__(self):
+        self.wordlist = ["мандарин", "яблоко",
+                         "груша", "виноград", "апельсин", "манго"]
+        self.secret = random.choice(self.wordlist)
+        self.guesses = "ауоыиэяюёе"
+        self.turns = 5
 
-  while turns > 0:
-    missed = 0
+    def display_word(self):
+        """Метод показания слова"""
+        for letter in self.secret:
+            if letter in self.guesses:
+                print(letter, end=" ")
+            else:
+                print("_", end=" ")
 
-    for letter in secret:
-      if letter in guesses:
-        print(letter, end=" ")
-      else:
-        print("_", end=" ")
-        missed += 1
-    if missed == 0:
-      print("\nТы выиграл!")
-      break
-    guess = input("\nНазови букву: ")
-    guesses += guess
+    def play(self):
+        """Метод логики игры"""
+        print("Добро пожаловать в игру Виселица!")
 
-    if guess not in secret:
-      turns -= 1
-      print("\nНе угадал.")
+        while self.turns > 0:
+            self.display_word()
+            missed = 0
 
-    print("\n", "Осталось попыток: ", turns)
+            for letter in self.secret:
+                if letter not in self.guesses:
+                    missed += 1
 
-    if turns == 0:
-      print("\n\nЭто слово: ", secret)
+            if missed == 0:
+                print("\nТы выиграл")
+                break
 
-  ans = "да"
-  while ans == "да":
-    hangman()
-  print("Спасибо за игру!")
+            guess = input("\nНазови букву: ")
+            self.guesses += guess
+
+            if guess not in self.secret:
+                self.turns -= 1
+                print("\nНе угадал.")
+
+            print("\nОсталось попыток:", self.turns)
+
+            if self.turns == 0:
+                print("\n\nЭто слово:", self.secret)
+                break
+
+        self.play_again()
+
+    def play_again(self):
+        """метод повторной попытки"""
+        answer = input("Хочешь сыграть ещё раз? (да/нет): ")
+        if answer.lower() == "да":
+            self.__init__()
+            self.play()
+        else:
+            print("Спасибо за игру!")
 
 
-hangman()
+if __name__ == "__main__":
+    game = Hangman()
+    game.play()
