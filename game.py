@@ -57,8 +57,8 @@ class Hangman:
         """метод повторной попытки"""
         answer = input("Хочешь сыграть ещё раз? (да/нет): ")
         if answer.lower() == "да":
-            self.__init__()
-            self.play()
+            new_game = Hangman()
+            new_game.play()
         else:
             print("Спасибо за игру!")
 
